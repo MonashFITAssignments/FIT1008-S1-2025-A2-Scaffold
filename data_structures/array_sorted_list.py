@@ -70,7 +70,7 @@ class ArraySortedList(SortedList[T]):
         It only sizes up, so should only be called when adding new items.
         """
         # Double the size of the array
-        new_array = ArrayR(2 * len(self.__array))
+        new_array = ArrayR(2 * len(self.__array) + 1)
 
         # copying the contents
         for i in range(self.__length):
