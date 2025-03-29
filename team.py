@@ -2,19 +2,19 @@ from __future__ import annotations
 from data_structures.referential_array import ArrayR
 from enums import TeamGameResult, PlayerPosition
 from player import Player
-from typing import Collection, Union, TypeVar
+from typing import Collection, TypeVar
 
 T = TypeVar("T")
 
 
 class Team:
-    def __init__(self, team_name: str, players: ArrayR[Player], history_length: int) -> None:
+    def __init__(self, team_name: str, initial_players: ArrayR[Player], history_length: int) -> None:
         """
         Constructor for the Team class
 
         Args:
             team_name (str): The name of the team
-            players (ArrayR[Player]): The players of the team
+            initial_players (ArrayR[Player]): The players the team starts with initially
             history_length (int): The number of `GameResult`s to store in the history
 
         Returns:
@@ -58,13 +58,13 @@ class Team:
         """
         raise NotImplementedError
 
-    def get_players(self, position: Union[PlayerPosition, None] = None) -> Collection[Player]:
+    def get_players(self, position: PlayerPosition | None = None) -> Collection[Player]:
         """
         Returns the players of the team that play in the specified position.
         If position is None, it should return ALL players in the team.
         You may assume the position will always be valid.
         Args:
-            position (Union[PlayerPosition, None]): The position of the players to return
+            position (PlayerPosition or None): The position of the players to return
 
         Returns:
             Collection[Player]: The players that play in the specified position
@@ -92,7 +92,7 @@ class Team:
         """
         raise NotImplementedError
 
-    def get_history(self) -> Union[Collection[TeamGameResult], None]:
+    def get_history(self) -> Collection[TeamGameResult] | None:
         """
         Returns the `GameResult` history of the team.
         If the team has played less than this team's `history_length`,

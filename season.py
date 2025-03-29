@@ -3,7 +3,6 @@ from data_structures.array_set import ArraySet
 from data_structures.referential_array import ArrayR
 from dataclasses import dataclass
 from team import Team
-from typing import Generator, Union
 
 
 @dataclass
@@ -131,27 +130,13 @@ class Season:
         raise NotImplementedError
 
 
-    def delay_week_of_games(self, orig_week: int, new_week: Union[int, None] = None) -> None:
+    def delay_week_of_games(self, orig_week: int, new_week: int | None = None) -> None:
         """
         Delay a week of games from one week to another.
 
         Args:
             orig_week (int): The original week to move the games from.
-            new_week (Union[int, None]): The new week to move the games to. If this is None, it moves the games to the end of the season.
-
-        Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
-        """
-        raise NotImplementedError
-
-    def get_games(self) -> Generator[Game]:
-        """
-        Returns a generator that gets the next game in the season.
-
-        Returns:
-            Game: The next game in the season.
-            or None if there are no more games left.
+            new_week (int or None): The new week to move the games to. If this is None, it moves the games to the end of the season.
 
         Complexity:
             Best Case Complexity:

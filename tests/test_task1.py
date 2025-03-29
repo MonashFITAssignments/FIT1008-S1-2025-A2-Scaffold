@@ -2,7 +2,6 @@ from unittest import TestCase
 
 from ed_utils.decorators import number, visibility
 from hashy_date_table import HashyDateTable
-from hashy_step_table import HashyStepTable
 
 
 class TestTask1(TestCase):

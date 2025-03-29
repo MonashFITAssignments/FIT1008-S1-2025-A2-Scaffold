@@ -22,10 +22,10 @@ from data_structures.linked_queue import LinkedQueue
 from data_structures.linked_stack import LinkedStack
 from data_structures.referential_array import ArrayR
 from hashy_date_table import HashyDateTable
-from hashy_step_table import HashyStepTable
+from lazy_double_table import LazyDoubleTable
 
 T = TypeVar('T')
-POSSIBLE_ADT_TYPES = Union[ArrayR, ArrayList, ArraySet, BitVectorSet, HashTableSeparateChaining, HashyDateTable, HashyStepTable,
+POSSIBLE_ADT_TYPES = Union[ArrayR, ArrayList, ArraySet, BitVectorSet, HashTableSeparateChaining, HashyDateTable, LazyDoubleTable,
                            LinearProbeTable, LinkedList, LinkedQueue, LinkedStack]
 
 
@@ -54,7 +54,7 @@ def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> Union[ArrayR[T], None]:
         for index in range(len(adt)):
             output[index] = adt[index]
 
-    elif adt_type in [LinearProbeTable, HashTableSeparateChaining, HashyDateTable, HashyStepTable]:
+    elif adt_type in [LinearProbeTable, HashTableSeparateChaining, HashyDateTable, LazyDoubleTable]:
         values: list[T] = adt.values()
         for index in range(len(adt)):
             output[index] = values[index]
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     test_hash_table(HashTableSeparateChaining)
     test_hash_table(LinearProbeTable)
     test_hash_table(HashyDateTable)
-    test_hash_table(HashyStepTable)
+    test_hash_table(LazyDoubleTable)
     test_array_sorted_list()
     test_arrayR()
     test_aset()

@@ -52,12 +52,6 @@ class TestTask5(TestCase):
         self.assertIsNotNone(self.season.schedule, "Schedule not initialized")
         # Check if the schedule is not empty
         self.assertNotEqual(len(self.season.schedule), 0, "Schedule is empty")
-        expected_matches: list[list[int]] = [[0, 1], [0, 2], [1, 2], [1, 0], [2, 0], [2, 1]]
-        match_no: int = 0
-        for game in self.season.get_games():
-            self.assertEqual(self.teams[expected_matches[match_no][0]].name, game.home_team.name)
-            self.assertEqual(self.teams[expected_matches[match_no][1]].name, game.away_team.name)
-            match_no += 1
 
     @number("5.3")
     @visibility(visibility.VISIBILITY_SHOW)

@@ -8,9 +8,9 @@ from typing import TypeVar
 V = TypeVar('V')
 
 
-class HashyStepTable(HashTable[str, V]):
+class LazyDoubleTable(HashTable[str, V]):
     """
-    Hashy Step Table.
+    Lazy Double Table uses double hashing to resolve collisions, and implements lazy deletion.
 
     Type Arguments:
         - V: Value Type.

@@ -1,14 +1,13 @@
 from unittest import TestCase
 
 from ed_utils.decorators import number, visibility
-from hashy_date_table import HashyDateTable
-from hashy_step_table import HashyStepTable
+from lazy_double_table import LazyDoubleTable
 
 
 class TestTask2(TestCase):
 
     def setUp(self) -> None:
-        self.step_table: HashyStepTable = HashyStepTable()
+        self.step_table: LazyDoubleTable = LazyDoubleTable()
 
     @number("2.1")
     @visibility(visibility.VISIBILITY_SHOW)
@@ -34,7 +33,7 @@ class TestTask2(TestCase):
     @number("2.3")
     @visibility(visibility.VISIBILITY_SHOW)
     def test_step_hash_delete_advanced(self):
-        self.step_table = HashyStepTable([97])
+        self.step_table = LazyDoubleTable([97])
         self.step_table.hash = lambda _: 0
         lookup_table = ['A', 'B', 'C', 'D', 'E']
 
