@@ -14,12 +14,12 @@ class HashyDateTable(LinearProbeTable[str]):
     """
     def __init__(self) -> None:
         """
-        Initialise the Hash Table with with increments of 365 as the table size.
-        This means, initially we will have 365 slots, once they are full, we will have 4 * 365 slots, and so on.
+        Initialise the Hash Table with with increments of 366 as the table size.
+        This means, initially we will have 366 slots, once they are full, we will have 4 * 366 slots, and so on.
 
         No complexity is required for this function.
         """
-        LinearProbeTable.__init__(self, [365, 4 * 365, 16 * 365])
+        LinearProbeTable.__init__(self, [366, 4 * 366, 16 * 366])
 
     def hash(self, key: str) -> int:
         """
@@ -33,7 +33,7 @@ class HashyDateTable(LinearProbeTable[str]):
         The function assumes the dates will always be valid i.e. the input will never be something like 66/14/2020.
         
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+        Best Case Complexity:
+        Worst Case Complexity:
         """
         raise NotImplementedError

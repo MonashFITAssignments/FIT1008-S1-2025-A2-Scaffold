@@ -15,21 +15,25 @@ from typing import TypeVar, Union
 from data_structures.array_set import ArraySet
 from data_structures.bit_vector_set import BitVectorSet
 from data_structures.array_sorted_list import ArraySortedList
-from data_structures.hash_table_linear_probing import LinearProbeTable
-from data_structures.hash_table_separate_chaining import HashTableSeparateChaining
+from data_structures.abstract_hash_table import HashTable
 from data_structures.linked_list import LinkedList
 from data_structures.linked_queue import LinkedQueue
+from data_structures.circular_queue import CircularQueue
 from data_structures.linked_stack import LinkedStack
 from data_structures.referential_array import ArrayR
-from hashy_date_table import HashyDateTable
-from lazy_double_table import LazyDoubleTable
+
+from data_structures.hash_table_linear_probing import LinearProbeTable
+from data_structures.hash_table_separate_chaining import HashTableSeparateChaining
 
 T = TypeVar('T')
-POSSIBLE_ADT_TYPES = Union[ArrayR, ArrayList, ArraySet, BitVectorSet, HashTableSeparateChaining, HashyDateTable, LazyDoubleTable,
-                           LinearProbeTable, LinkedList, LinkedQueue, LinkedStack]
+
+POSSIBLE_ADT_TYPES = Union[
+    ArrayR, ArrayList, ArraySet, BitVectorSet, CircularQueue,
+    LinkedList, LinkedQueue, LinkedStack
+]
 
 
-def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> Union[ArrayR[T], None]:
+def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> ArrayR[T] | None:
     """
     Take out n elements from the ADT
     """
@@ -40,21 +44,25 @@ def take_out_from_adt(adt: POSSIBLE_ADT_TYPES) -> Union[ArrayR[T], None]:
 
     # Some of the below methods mutate the ADT so we will make a copy of the ADT
     adt_type = type(adt)
-    if adt_type == LinkedQueue:
-        adt: LinkedQueue = deepcopy(adt)
+    if adt_type in [LinkedQueue, CircularQueue]:
         for index in range(len(adt)):
             output[index] = adt.serve()
+            adt.append(output[index])
 
     elif adt_type == LinkedStack:
-        adt: LinkedStack = deepcopy(adt)
+        temp_stack = LinkedStack()
         for index in range(len(adt)):
             output[index] = adt.pop()
+            temp_stack.push(output[index])
+        
+        for index in range(len(temp_stack)):
+            adt.push(temp_stack.pop())
 
     elif adt_type in [ArrayList, LinkedList, ArrayR]:
         for index in range(len(adt)):
             output[index] = adt[index]
 
-    elif adt_type in [LinearProbeTable, HashTableSeparateChaining, HashyDateTable, LazyDoubleTable]:
+    elif isinstance(adt, HashTable):
         values: list[T] = adt.values()
         for index in range(len(adt)):
             output[index] = values[index]
@@ -203,8 +211,6 @@ if __name__ == "__main__":
     test_linked_list()
     test_hash_table(HashTableSeparateChaining)
     test_hash_table(LinearProbeTable)
-    test_hash_table(HashyDateTable)
-    test_hash_table(LazyDoubleTable)
     test_array_sorted_list()
     test_arrayR()
     test_aset()

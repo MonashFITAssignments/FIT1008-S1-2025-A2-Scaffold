@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from data_structures.referential_array import ArrayR
 from enums import TeamGameResult, PlayerPosition
 from player import Player

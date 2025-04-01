@@ -151,8 +151,8 @@ class LazyDoubleTable(HashTable[str, V]):
         Set a (key, value) pair in our hash table.
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+        Best Case Complexity:
+        Worst Case Complexity:
         """
 
         position = self.__hashy_probe(key, True)
@@ -164,8 +164,8 @@ class LazyDoubleTable(HashTable[str, V]):
         Deletes a (key, value) pair in our hash table.
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+        Best Case Complexity:
+        Worst Case Complexity:
         """
         raise NotImplementedError
 
@@ -174,7 +174,7 @@ class LazyDoubleTable(HashTable[str, V]):
         Need to resize table and reinsert all values
 
         Complexity:
-            Best Case Complexity:
-            Worst Case Complexity:
+        Best Case Complexity:
+        Worst Case Complexity:
         """
         raise NotImplementedError
