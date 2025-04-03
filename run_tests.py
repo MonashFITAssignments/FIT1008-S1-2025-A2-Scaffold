@@ -2,9 +2,7 @@ import argparse
 import re
 import unittest
 
-import re
 import json
-import unittest
 import sys
 import os
 from unittest.runner import TextTestResult
@@ -34,7 +32,9 @@ class CustomTestResult(TextTestResult):
 
     def addError(self, test, err):
         message = self._exc_info_to_string(err, test)
-        self._record_result(test, False, message, ok=False)
+        # Pass ok as True so Ed would still show the total score - it doesn't matter if the student's code
+        # errors or returns the wrong result - it's a failed test either way.
+        self._record_result(test, False, message, ok=True)
 
     def _record_result(self, test, passed, feedback, ok=True):
         docstring = test._testMethodDoc or ""
