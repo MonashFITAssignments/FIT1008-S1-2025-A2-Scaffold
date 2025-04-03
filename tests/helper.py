@@ -9,7 +9,6 @@ You cannot use methods in this class or you will recieve
 a 0 for approach and test case marks.
 
 """
-from copy import deepcopy
 from typing import TypeVar, Union
 
 from data_structures.array_set import ArraySet
