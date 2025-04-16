@@ -20,7 +20,7 @@ class HashyDateTable(LinearProbeTable[str]):
         No complexity is required for this function.
         Do not make any changes to this function.
         """
-        LinearProbeTable.__init__(self, [366, 4 * 366, 16 * 366])
+        LinearProbeTable.__init__(self, (366, 4 * 366, 16 * 366))
 
     def hash(self, key: str) -> int:
         """
