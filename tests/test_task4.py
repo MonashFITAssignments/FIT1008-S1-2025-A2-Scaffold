@@ -230,4 +230,4 @@ class TestTask4Approach(TestTask4Setup):
             
             # Report any failures
             for failure in visitor.failures:
-                self.fail(failure)
+                self.fail(failure[3])

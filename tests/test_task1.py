@@ -91,7 +91,7 @@ class TestTask1Approach(TestTask1Setup):
             
             # Report any failures
             for failure in visitor.failures:
-                self.fail(failure)
+                self.fail(failure[3])
 
     def test_table_size(self):
         """

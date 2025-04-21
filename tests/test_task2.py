@@ -112,7 +112,7 @@ class TestTask2Approach(TestTask2Setup):
             
             # Report any failures
             for failure in visitor.failures:
-                self.fail(failure)
+                self.fail(failure[3])
 
     def test_lazy_deletion_1(self):
         """

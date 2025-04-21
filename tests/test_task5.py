@@ -125,4 +125,4 @@ class TestTask5Approach(TestTask5Setup):
             
             # Report any failures
             for failure in visitor.failures:
-                self.fail(failure)
+                self.fail(failure[3])
