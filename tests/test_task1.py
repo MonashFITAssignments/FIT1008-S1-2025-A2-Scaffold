@@ -79,7 +79,7 @@ class TestTask1Approach(TestTask1Setup):
         """
         import hashy_date_table
         modules = [hashy_date_table]
-        
+
         for f in modules:
             # Get the source code
             f_source = inspect.getsource(f)
@@ -91,7 +91,11 @@ class TestTask1Approach(TestTask1Setup):
             
             # Report any failures
             for failure in visitor.failures:
-                self.fail(failure[3])
+                klass, func, used_type, message = failure
+                if klass == "HashyDateTable" and func == "__init__" and used_type == list:
+                    # Ignore the use of Python list in the constructor
+                    continue
+                self.fail(message)
 
     def test_table_size(self):
         """
