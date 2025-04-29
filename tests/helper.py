@@ -96,7 +96,11 @@ class CollectionsFinder(ast.NodeVisitor):
     def visit_Call(self, node):
         if self.current_function in ("__str__", "__repr__"):
             return
-            
+
+        # Ignore print function calls
+        if isinstance(node.func, ast.Name) and node.func.id == "print":
+            return
+
         if isinstance(node.func, ast.Name) and node.func.id in self.forbidden_types:
             self.add_failure(
                 {
