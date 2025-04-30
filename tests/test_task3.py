@@ -48,27 +48,28 @@ class TestTask3(TestTask3Setup):
         self.assertEqual(alexey.get_age(), self.sample_players_data[0][2])
         self.assertEqual(alexey.goals, 0)
 
-    def test_player_age(self):
-        """
-        #name(Test player age calculation)
-        """
-        move_time_forward_years = 2
-        
+    def _test_player_age_logic(self, years_delta: int):
         alexey = self.sample_players[0]
 
         mock_datetime_class = mock.MagicMock(wraps=datetime.datetime)
-        mock_datetime_class.now = mock.MagicMock(return_value=datetime.datetime(datetime.datetime.now().year + move_time_forward_years, 1, 1))
-        mock_datetime_class.today = mock.MagicMock(return_value=datetime.date(datetime.datetime.now().year + move_time_forward_years, 1, 1))
+        mock_datetime_class.now = mock.MagicMock(return_value=datetime.datetime(datetime.datetime.now().year + years_delta, 1, 1))
+        mock_datetime_class.today = mock.MagicMock(return_value=datetime.date(datetime.datetime.now().year + years_delta, 1, 1))
 
         mock_datetime_module = mock.MagicMock(wraps=datetime)
-        mock_datetime_module.date.today = datetime.date(datetime.datetime.now().year + move_time_forward_years, 1, 1)
+        mock_datetime_module.date.today = mock.MagicMock(return_value=datetime.date(datetime.datetime.now().year + years_delta, 1, 1))
         mock_datetime_module.datetime = mock_datetime_class
 
         try:
             with mock.patch(f"{player.__name__}.datetime", mock_datetime_module):
-                self.assertEqual(alexey.get_age(), self.sample_players_data[0][2] + move_time_forward_years)
+                self.assertEqual(alexey.get_age(), self.sample_players_data[0][2] + years_delta)
         except AttributeError:
             self.fail("Player.py: do not change the datetime import statement from the scaffold.")
+
+    def test_player_age(self):
+        """
+        #name(Test player age calculation - 3 years later)
+        """
+        self._test_player_age_logic(3)
     
     def test_player_stat_retrieval(self):
         """
