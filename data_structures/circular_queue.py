@@ -13,6 +13,11 @@ class CircularQueue(Queue[T]):
     """
 
     def __init__(self, max_capacity: int) -> None:
+        """
+        Constructor for the CircularQueue class.
+        :param max_capacity: maximum capacity of the queue
+        :complexity: O(max_capacity) due to the creation of the array
+        """
         if max_capacity <= 0:
             raise ValueError("Capacity should be larger than 0.")
 
@@ -25,6 +30,7 @@ class CircularQueue(Queue[T]):
     def append(self, item: T) -> None:
         """ Adds an element to the rear of the queue.
         :raises Exception: if the queue is full
+        :complexity: O(1)
         """
         if self.is_full():
             raise Exception("Queue is full")
@@ -36,6 +42,7 @@ class CircularQueue(Queue[T]):
     def serve(self) -> T:
         """ Deletes and returns the element at the queue's front.
         :raises Exception: if the queue is empty
+        :complexity: O(1)
         """
         if self.is_empty():
             raise Exception("Queue is empty")
@@ -48,6 +55,7 @@ class CircularQueue(Queue[T]):
     def peek(self) -> T:
         """ Returns the element at the queue's front.
         :raises Exception: if the queue is empty
+        :complexity: O(1)
         """
         if self.is_empty():
             raise Exception("Queue is empty")

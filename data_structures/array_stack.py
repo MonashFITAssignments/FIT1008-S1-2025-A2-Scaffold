@@ -1,6 +1,7 @@
 from data_structures.abstract_stack import Stack
 from data_structures.referential_array import ArrayR, T
 
+
 class ArrayStack(Stack[T]):
     """ Implementation of a stack with arrays.
 
@@ -10,6 +11,11 @@ class ArrayStack(Stack[T]):
     """
 
     def __init__(self, max_capacity: int) -> None:
+        """
+        Constructor for the ArrayStack class.
+        :param max_capacity: maximum capacity of the stack
+        :complexity: O(max_capacity) due to the creation of the array
+        """
         if max_capacity <= 0:
             raise ValueError("Capacity should be larger than 0.")
         Stack.__init__(self)
@@ -23,6 +29,7 @@ class ArrayStack(Stack[T]):
     def push(self, item: T) -> None:
         """ Pushes an element to the top of the stack.
         :raises Exception: if the stack is full
+        :complexity: O(1)
         """
         if self.is_full():
             raise Exception("Stack is full")
@@ -32,6 +39,7 @@ class ArrayStack(Stack[T]):
     def pop(self) -> T:
         """ Pops the element at the top of the stack.
         :raises Exception: if the stack is empty
+        :complexity: O(1)
         """
         if self.is_empty():
             raise Exception("Stack is empty")
@@ -41,6 +49,7 @@ class ArrayStack(Stack[T]):
     def peek(self) -> T:
         """ Returns the element at the top, without popping it from stack.
         :raises Exception: if the stack is empty
+        :complexity: O(1)
         """
         if self.is_empty():
             raise Exception("Stack is empty")

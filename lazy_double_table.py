@@ -48,7 +48,11 @@ class LazyDoubleTable(HashTable[str, V]):
     def keys(self) -> ArrayR[str]:
         """
         Returns all keys in the hash table.
-        :complexity: O(N) where N is the number of items in the table.
+        
+        If you need to use this function, you will probably need to update its
+        implementation according to how you implemented the lazy deletion.
+
+        :complexity: O(N + S) where N is the number of items in the table and S is the table size.
         """
         res = ArrayR(self.__length)
         i = 0
@@ -62,7 +66,10 @@ class LazyDoubleTable(HashTable[str, V]):
         """
         Returns all values in the hash table.
 
-        :complexity: O(N) where N is the number of items in the table.
+        If you need to use this function, you will probably need to update its
+        implementation according to how you implemented the lazy deletion.
+
+        :complexity: O(N + S) where N is the number of items in the table and S is the table size.
         """
         res = ArrayR(self.__length)
         i = 0
@@ -113,7 +120,7 @@ class LazyDoubleTable(HashTable[str, V]):
     def hash(self, key: str) -> int:
         """
         Hash a key for insert/retrieve/update into the hashtable.
-        :complexity: O(len(key))
+        :complexity: O(K) where K is the length of the key.
         """
         value = 0
         a = 31415

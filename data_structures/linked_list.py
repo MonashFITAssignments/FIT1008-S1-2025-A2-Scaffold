@@ -62,7 +62,7 @@ class LinkedList(List[T]):
 
     def append(self, item: T) -> None:
         """ Append the item to the end of the list. 
-        Given we have a reference to the rear of the list, this is O(1).
+        :complexity: Given we have a reference to the rear of the list, this is O(1).
         """
         new_node = Node(item)
         if self.__head is None:
@@ -77,14 +77,20 @@ class LinkedList(List[T]):
             if index < 0:
                 index = len(self) + index
             current = self.__head
-            for i in range(index):
+            for _ in range(index):
                 current = current.link
             return current
         else:
             raise IndexError('Out of bounds access in list.')
 
     def index(self, item: T) -> int:
-        """ Find the position of a given item in the list. """
+        """
+        Find the position of a given item in the list.
+        :complexity:
+            Best: O(1) if the item is at the head of the list.
+            Worst: O(N) where N is the number of items in the list. Happens when the item is at
+                the end of the list or it doesn't exist in the list.
+        """
         current = self.__head
         index = 0
         while current is not None and current.item != item:

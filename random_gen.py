@@ -63,7 +63,7 @@ class RandomGen:
     def random_shuffle(cls, collection) -> None:
         """
         Randomly shuffles a collection that supports __getitem__, __setitem__ and __len__
-        :complexity: O(len(collection))
+        :complexity: O(N * Log N) where N is the length of the collection.
         """
         positions = [(RandomGen.random(), i) for i in range(len(collection))]
         positions.sort() # I can use inbuilt list sorting here - YOU CANNOT ANYWHERE ELSE! >:D

@@ -94,6 +94,8 @@ class ArrayList(List[T]):
         :raises ValueError: if item not in the list
         :complexity: O(Comp==) if item is first; Comp== is the BigO of ==
                      O(len(self)*Comp==) if item is last
+            Comp== depends on the type of items in the list, and the
+            implementation of the equality operator for that type (__eq__).
         """
         for i in range(len(self)):
             if item == self[i]:
@@ -105,7 +107,7 @@ class ArrayList(List[T]):
         """ Delete item at the given index.
         It will shuffle all the items to the left from index to fill the empty spot.
         :pre: index is 0 <= index < len(self) - this is checked by __getitem__() !
-        :complexity: O(len(self) - index)
+        :complexity: See __shuffle_left()
         """
         item = self[index]
         self.__length -= 1
@@ -116,7 +118,9 @@ class ArrayList(List[T]):
         """ Insert item at the given index.
         It will shuffle all the items to the right from index to make space for the new item.
         If the list is full, it should be extended with the use of self.__resize().
-        :complexity: O(len(self)-index) if no resizing needed, O(len(self)) otherwise
+        :complexity: Best case O(1) if inserting at the end of the list and the list is not full.
+                     Worst case O(N) if inserting at the start of the list and the list is full where N
+                     is the number of items in the list.
         """
         # Ensure index is valid
         if index < 0 or index > len(self):

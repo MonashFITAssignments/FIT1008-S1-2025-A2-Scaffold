@@ -13,6 +13,10 @@ class LinkedQueue(Queue[T]):
     """
 
     def __init__(self) -> None:
+        """
+        Constructor for the LinkedQueue class.
+        :complexity: O(1)
+        """
         Queue.__init__(self)
         self.__front = None
         self.__rear = None
@@ -25,6 +29,7 @@ class LinkedQueue(Queue[T]):
     def append(self, item: T) -> None:
         """ Adds an element to the rear of the queue.
         :raises Exception: if the queueu is full.
+        :complexity: O(1)
         """
         # Case 1: Empty queue
         if self.__front is None:
@@ -43,6 +48,7 @@ class LinkedQueue(Queue[T]):
     def serve(self) -> T:
         """ Deletes and returns the element at the queue's front.
         :raises Exception: if the queue is empty
+        :complexity: O(1)
         """
         if self.is_empty():
             raise Exception("Queue is empty")

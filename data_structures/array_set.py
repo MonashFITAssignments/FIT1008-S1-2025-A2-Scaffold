@@ -59,6 +59,10 @@ class ArraySet(Set[T]):
         """
         Removes an element from the set.
         :raises KeyError: if no such element is found.
+        :complexity:
+            Best case O(1) when the items is found at the beginning. 
+            Worst case O(N) where N is the number of items in the set, happens when item
+            is found at the end of the set or not found at all.
         """
         for i in range(self.__length):
             if item == self.__array[i]:
@@ -71,6 +75,7 @@ class ArraySet(Set[T]):
     def values(self) -> ArrayR[T]:
         """
         Returns the elements of the set as an array.
+        :complexity: O(N) where N is the number of items in the set.
         """
         res = ArrayR(self.__length)
         for i in range(self.__length):
@@ -81,6 +86,7 @@ class ArraySet(Set[T]):
         """
         Creates a new set equal to the union of this set and the other one.
         I.e. the result set should contain all elements in self and other.
+        :complexity: O(N * M) where N is the number of items in self and M is the number of items in other.
         """
         res = ArraySet(len(self.__array) + len(other.__array))
 
@@ -99,6 +105,7 @@ class ArraySet(Set[T]):
         """ The intersection of this set with the other one.
         The result set should contain the elements that are present
         in both self and other.
+        :complexity: O(N * M) where N is the number of items in self and M is the number of items in other.
         """
         res = ArraySet(min(len(self.__array), len(other.__array)))
 
@@ -113,6 +120,7 @@ class ArraySet(Set[T]):
         """ Creates the result of self - other.
         The result set should contain the elements that are present
         in self but not in other.
+        :complexity: O(N * M) where N is the number of items in self and M is the number of items in other.
         """
         res = ArraySet(len(self.__array))
 

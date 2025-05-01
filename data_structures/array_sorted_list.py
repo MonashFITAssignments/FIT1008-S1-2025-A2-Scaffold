@@ -25,6 +25,7 @@ class ArraySortedList(SortedList[T]):
         """ Clear the list.
         All we need to do is reset the length of the list to 0.
         This will start writing elements from the beginning of the array.
+        :complexity: O(1)
         """
         self.__length = 0
 
@@ -34,6 +35,7 @@ class ArraySortedList(SortedList[T]):
     def __getitem__(self, index: int) -> T:
         """ Return the element at the given position.
         :raises IndexError: if the index is out of bounds.
+        :complexity: O(1)
         """
         if index < -1 * len(self) or len(self) <= index:
             raise IndexError('Out of bounds access in list.')
@@ -44,6 +46,7 @@ class ArraySortedList(SortedList[T]):
     def __contains__(self, item):
         """ Checks if the item is in the list.
         :returns: True if the item is in the list, False otherwise.
+        :complexity: See _index
         """
         try:
             _ = self.index(item)
@@ -80,7 +83,13 @@ class ArraySortedList(SortedList[T]):
         self.__array = new_array
 
     def delete_at_index(self, index: int) -> T:
-        """ Delete item at the given position. """
+        """
+        Delete item at the given position.
+        :complexity:
+            Best case: O(1) when the item is at the end of the list.
+            Worst case: O(N) when the item is at the beginning of the list. N is the
+              number of items in the list.
+        """
         item = self[index]
         self.__length -= 1
         self.__shuffle_left(index)
@@ -91,6 +100,7 @@ class ArraySortedList(SortedList[T]):
         Find the position of a given item in the list,
         by means of calling the __index_to_add() method.
         :raises ValueError: if the item is not found.
+        :complexity: See __index_to_add()
         """
         # Try finding the index
         index = self.__index_to_add(item)
@@ -101,7 +111,13 @@ class ArraySortedList(SortedList[T]):
         raise ValueError(f"{item} not found")
 
     def add(self, item: T) -> None:
-        """ Add new element to the list. """
+        """
+        Add new element to the list.
+        :complexity:
+            Best case: O(log N) when the item is added at the end of the list.
+            Worst case: O(N) when the item is added at the beginning of the list.
+            N is the number of items in the list.
+        """
         if len(self) == len(self.__array):
             self.__resize()
         index = self.__index_to_add(item)
@@ -112,10 +128,12 @@ class ArraySortedList(SortedList[T]):
     def __index_to_add(self, item: T) -> int:
         """
         Find the position where the new item should be placed.
-        :complexity best: O(comp)   item is the middle element
-        :complexity worst: O(logn * comp)  first or last element
-            comp - cost of comparision
-            n - length of the list
+        :complexity: 
+            Best: O(Comp) happens when item is the middle element
+            Worst: O(Log N * comp) happens when item is the first or the last element
+            
+            Comp - cost of comparision - can be assumed O(1) for simple types like numbers
+            N - length of the list
         """
 
         low = 0
