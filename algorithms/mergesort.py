@@ -1,11 +1,12 @@
 from __future__ import annotations
 from data_structures.referential_array import ArrayR
-from typing import List, TypeVar, Union
+from data_structures.array_list import ArrayList
+from typing import TypeVar, Union
 
 T = TypeVar("T")
 
 
-def merge(list1: Union[List[T], ArrayR[T]], list2: Union[List[T], ArrayR[T]], key=lambda x: x) -> List[T]:
+def merge(list1: Union[ArrayList[T], ArrayR[T]], list2: Union[ArrayList[T], ArrayR[T]], key=lambda x: x) -> Union[ArrayList[T], ArrayR[T]]:
     """
     Merges two sorted lists into one larger sorted list,
     containing all elements from the smaller lists.
@@ -13,7 +14,9 @@ def merge(list1: Union[List[T], ArrayR[T]], list2: Union[List[T], ArrayR[T]], ke
     The `key` kwarg allows you to define a custom sorting order.
 
     returns:
-    The sorted list.
+    The sorted list in the same type as the input lists.
+    If both lists are of type ArrayR, the result will be an ArrayR.
+    If both lists are of type ArrayList, the result will be an ArrayList.
 
     pre:
     Both l1 and l2 are sorted, and contain comparable elements.
@@ -31,21 +34,64 @@ def merge(list1: Union[List[T], ArrayR[T]], list2: Union[List[T], ArrayR[T]], ke
         else:
             new_list.append(list2[cur_right])
             cur_right += 1
-    new_list += list1[cur_left:]
-    new_list += list2[cur_right:]
-    return new_list
+    
+    # Append any remaining elements from list1 or list2
+    for i in range(cur_left, len(list1)):
+        new_list.append(list1[i])
+    for i in range(cur_right, len(list2)):
+        new_list.append(list2[i])
+    
+    if isinstance(list1, ArrayR):
+        return ArrayR.from_list(new_list)
+    elif isinstance(list1, ArrayList):
+        result = ArrayList(len(new_list))
+        for i in range(len(new_list)):
+            result.append(new_list[i])
+        return result
+    else:
+        raise TypeError("Unsupported type for list1 and list2. Must be ArrayR or ArrayList.")
 
 
-def mergesort(my_list: Union[List[T], ArrayR], key=lambda x: x) -> List[T]:
+def mergesort(my_list: Union[ArrayList[T], ArrayR], key=lambda x: x) -> Union[ArrayList[T], ArrayR]:
     """
     Sort a list using the mergesort operation.
 
     complexity:
-    Best/Worst Case: O(NlogN * comp(T)) where N is the length of the list and comp is the cost of comparison.
+    Best/Worst Case: O(NlogN * comp(T)) where N is the length of the list and comp is the cost of comparison for the
+    object type T (the elements in the list).
+
+    Return type is the same as the input type.
+    If the input is an ArrayR, the output will be an ArrayR.
+    If the input is an ArrayList, the output will be an ArrayList.
     """
     if len(my_list) <= 1:
         return my_list
+    
+    # Split the list into two halves
     break_index = (len(my_list)+1) // 2
-    list1 = mergesort(my_list[:break_index], key)
-    list2 = mergesort(my_list[break_index:], key)
+    
+    # Create two new lists to hold the two halves
+    if isinstance(my_list, ArrayR):
+        left_half = ArrayR(break_index)
+        right_half = ArrayR(len(my_list) - break_index)
+    elif isinstance(my_list, ArrayList):
+        left_half = ArrayList(break_index)
+        right_half = ArrayList(len(my_list) - break_index)
+    else:
+        raise TypeError("Unsupported type for my_list. Must be ArrayR or ArrayList.")
+    
+    for i in range(break_index):
+        if isinstance(left_half, ArrayR):
+            left_half[i] = my_list[i]
+        else:
+            left_half.append(my_list[i])
+    for i in range(break_index, len(my_list)):
+        if isinstance(right_half, ArrayR):
+            right_half[i - break_index] = my_list[i]
+        else:
+            right_half.append(my_list[i])
+    
+    # Recursively sort the two halves and merge them
+    list1 = mergesort(left_half, key)
+    list2 = mergesort(right_half, key)
     return merge(list1, list2, key)
