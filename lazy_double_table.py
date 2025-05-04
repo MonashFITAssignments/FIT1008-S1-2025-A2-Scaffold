@@ -52,7 +52,7 @@ class LazyDoubleTable(HashTable[str, V]):
         If you need to use this function, you will probably need to update its
         implementation according to how you implemented the lazy deletion.
 
-        :complexity: O(N + S) where N is the number of items in the table and S is the table size.
+        :complexity: O(N) where N is the table size.
         """
         res = ArrayR(self.__length)
         i = 0
@@ -69,7 +69,7 @@ class LazyDoubleTable(HashTable[str, V]):
         If you need to use this function, you will probably need to update its
         implementation according to how you implemented the lazy deletion.
 
-        :complexity: O(N + S) where N is the number of items in the table and S is the table size.
+        :complexity: O(N) where N is the table size.
         """
         res = ArrayR(self.__length)
         i = 0
